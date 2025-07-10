@@ -12,6 +12,7 @@ function Home() {
         })
 },[])
   if(posts.length === 0){
+    console.log(posts.length);
     return(
         <div className='w-full py-8 mt-4 text-center'>
             <Container>

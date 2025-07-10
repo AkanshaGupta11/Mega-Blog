@@ -20,14 +20,14 @@ function PostForm({post}) {
     const {register,handleSubmit, watch, setValue, control,getValues} = useForm({
         defaultValues :{
             title : post?.title || "",
-            slug: post?.slug || "",
+            slug: post?.$id || "",
             content: post?.content || "",
             status : post?.status || "active"
-        }
+        },
     })
 
     const navigate = useNavigate();
-    const userData = useSelector(state => state.user.userData)
+    const userData = useSelector(state => state.auth.userData)
 
     //agr form submit kiya 
     //agr post ki value hain tho updat nhi hain tho nya 
@@ -62,11 +62,11 @@ function PostForm({post}) {
             const file = await appwriteService.uploadFile(data.image[0]);
             if(file){
                 const fileId = file.$id;
-                data.featuredImage = fileId
+                data.featuredImage = fileId;
                 const dbPost = await appwriteService.createPost({
                     ...data,
                     userId : userData.$id,
-                })
+                });
                 if(dbPost){
                     navigate(`/post/${dbPost.$id}`)
                 }
@@ -77,7 +77,7 @@ function PostForm({post}) {
 //agr title mai space atti tho usko dash mai convert krna 
 
     const slugTransform = useCallback((value) => {
-        if(value && typeof value == 'string') {
+        if(value && typeof value === 'string') {
             return value
             .trim()
             .toLowerCase()
@@ -92,16 +92,15 @@ function PostForm({post}) {
 useEffect(() => {
     const subscription = watch((value,{name}) =>{
         if(name === 'title'){
-            setValue('slug',slugTransform(value.title,
+            setValue('slug',slugTransform(value.title),
                 {shouldValidate: true}
-            ))
+            );
         }
     })
 
-    return () =>{
-        subscription.unsubscribe() // optimization 
-    }
-},[watch,slugTransform,setValue])
+    return () => subscription.unsubscribe(); // optimization 
+    
+},[watch,slugTransform,setValue]);
   return (
     <form onSubmit = {handleSubmit(submit)} className = "flex flex-wrap">
         <div className="w-2/3 px-2">
@@ -124,7 +123,7 @@ useEffect(() => {
             onInput = {(e) =>{
                 setValue("slug",slugTransform(e.currentTarget.value),{
                     shouldValidate:true
-                })
+                });
             }}
             />
             <RTE label = "Content :"
@@ -166,4 +165,4 @@ useEffect(() => {
   )
 }
 
-export default PostForm
+export default PostForm;

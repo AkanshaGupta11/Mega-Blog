@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import appwriteService from "../appwrite/config";
-import { Button, Container } from "../components";
+import appwriteService from "../appwrite/confug";
+import { Container } from "../componenets";
+import Button from "../componenets/Button";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
@@ -65,3 +66,8 @@ export default function Post() {
         </div>
     ) : null;
 }
+
+//rtē apko html mai deta hain 
+//parse
+//post --> baar baar web se request n laana pde
+//tho reducer mai post:postSlice add krna hoga 

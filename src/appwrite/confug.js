@@ -1,4 +1,5 @@
 import conf from "../config/conf";
+import authService from './auth'
 import {Client, ID, Databases, Storage, Query} from "appwrite";
 
 export class Service {
@@ -88,12 +89,17 @@ export class Service {
 //status --> key --> indexes --> query lga skte 
     async getPosts(queries = [Query.equal("status","active")]){
         try{
-            return  await this.databases.listDocuments(
+            const user = await authService.getCurrentUser();
+            if(user){
+                return  await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries,
                 //pagination 
             )
+            }
+
+            
             
         }
         catch(error){

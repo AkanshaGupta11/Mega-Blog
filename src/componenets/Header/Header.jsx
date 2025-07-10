@@ -5,7 +5,8 @@ import {useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
 function Header(){
-    const authStatus = useSelector ((state) => state.auth.status)
+    const authStatus = useSelector ((state) => state.auth?.status ?? false);
+    console.log(authStatus);
     const navigate = useNavigate()
 
     const navItems = [
@@ -17,7 +18,7 @@ function Header(){
         { //agr login hain tho login waala btn kyu dikhayenge 
             name : "Login",
             slug: "/login",
-            active: !authStatus
+            active: !authStatus,
         },
         { //agr signup hain tho signup waala btn thodi dikhayenge 
             name : "Signup",

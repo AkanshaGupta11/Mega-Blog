@@ -28,10 +28,8 @@ function Login() {
         const session = await authService.login(data) //data k andr ky hain -> obj hog
         //if session hain user logged in
         if(session){
-            const userData = await authService.getCurrentUser();
-            if(userData){
-                dispatch(authLogin(userData));
-            }
+            const userData = await authService.getCurrentUser()
+            if(userData) dispatch(authLogin(userData));
             navigate("/")
         } 
 
@@ -75,7 +73,7 @@ function Login() {
                     //regexr --> email validate 
                     // ye kuch pattern include that your email dould have 
                     required: true,
-                    vaildate:{
+                    validate:{
                         matchPattern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                         "Email address must be a valid address"
                     }
@@ -84,10 +82,11 @@ function Login() {
 
                 <Input
                 label = "Password"
-                placeholder = "Enter your password"
                 type = "password"
+                placeholder = "Enter your password"
+                
                 {...register("password",{
-                    reguired:true,
+                    required:true,
                     validate:{
                         matchPattern: (value) =>/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(value) ||
                         "Enter a valid password"
@@ -95,9 +94,8 @@ function Login() {
                 })}></Input>
 
                 <Button
-                children  = "Signin"
                 type ="submit"
-                className='w-full'></Button>
+                className='w-full'>Sign in</Button>
             </div>
         </form>
         </div>

@@ -2,17 +2,17 @@ import {createSlice} from '@reduxjs/toolkit';
 
 //store puchne k liye ki user logged in ki nhi 
 const initialState = {
-    status : false,
-    userData : null
+    status: false,
+    userData : null,
 }
 
 const authSlice = createSlice({
     name:"auth",
     initialState,
-    reducer :{
+    reducers :{
         login: (state,action) =>{
             state.status = true;
-            state.userData = action.payload.userData
+            state.userData = action.payload.userData;
         },
 
         logout:(state) => {

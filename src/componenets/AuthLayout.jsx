@@ -21,18 +21,18 @@ export default function Protected({children, authentication = true}){
         // }
 
         if(authentication && authStatus !== authentication){
-            navigate('/login')
+            navigate("/login")
 
         }
         //false  && 
         else if(!authentication && authStatus !== authentication){
-            navigate('/')
+            navigate("/")
         }
         setLoader(false);
     },[authStatus,navigate,authentication])
 
   return (
-    loader ? <h1>Loading...</h1> : {children}
+    loader ? <h1>Loading...</h1> : <>{children}</>
   )
 }
 

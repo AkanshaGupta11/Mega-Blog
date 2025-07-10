@@ -22,7 +22,7 @@ function App() {
     //if userdata hain
     .then((userData)=>{
       if(userData) {
-        dispatch(login(({userData})))
+        dispatch(login({userData}))
       }
       //agr data ni milla hain tho ek activity hi call krado 
       //state hi updtae krdo logout 
@@ -30,9 +30,7 @@ function App() {
         dispatch(logout())
       }
     })
-    .finally(()=>{
-      setLoading(false)
-    })
+    .finally(()=> setLoading(false))
   },[])
 
 // apne hisaab se return 
@@ -47,10 +45,11 @@ function App() {
     <div className='w-full block'>
       <Header />
       <main>
-        {/* <Outlet /> */}
+        TODO: <Outlet />
       </main>
       <Footer />
-      </div></div>
+      </div>
+      </div>
   ) : null
 
 
